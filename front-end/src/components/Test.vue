@@ -3,22 +3,23 @@
     <div id="blur">
     <section class="w3l-whyblock py-3">
         <el-container class="pb-lg-5 pb-md-4 pb-2">
-            <el-header id="site-header" style="font-size: 30px; font-weight: bold;">
-                <div class="container">
+            <el-header id="site-header" style="font-weight: bold;">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" style="color:grey;">
-                            <i class="el-icon-dish"></i>Cooking 
-                        </a>   
+                        <a class="navbar-brand" style="color:grey; font-size: 25px;">
+                            <i class="el-icon-back" @click="backhome()">Home </i>
+                                <!-- <div class="headIcon" @click="backhome()">
+                                </div> -->
+                       </a>   
                     </nav>
-                </div>                   
+               
             </el-header>
             <div class="row align-items-center m-0">
-                <div class="col-lg-6 ps-0" style="margin-left:6%;">
+                <div class="col-lg-6 ps-0" style="margin-left:6%; margin-top:2%;">
                     <el-row>
                         <el-col :span=12>
                             <h4 class="title-style mb-4" style="float:center;font-weight:bold;color:darkred">No-Bake Nut Cookies</h4>
                             
-                            <img src="../assets/images/rocky-road-cake.jpg"></el-col>
+                            <img src="../assets/images/c1.jpg" style="max-width: 60%;height: auto;"></el-col>
                         <el-col :span=12>
                             <h5 style="color:crimson; font-weight: bold;">Ingredients: </h5> <br/>
                             <li style="text-align: left;"> <i class="el-icon-star-off"></i>  1 c. firmly packed brown sugar</li>
@@ -94,20 +95,16 @@ export default{
 
         }
     },
-    method(){
-
-
+    methods: {
+        backhome(){
+            this.$router.push({
+                name: 'Homepage',  
+            });
+            window.location.reload();
+        }
     },
-    mounted () {
-    // 首次加载时,初始化高度
-    this.screenWidth = window.innerWidth
-    this.bannerHeight = 600 / 1550 * this.screenWidth
-    // 窗口大小发生改变
-    window.onresize = () => {
-      this.screenWidth = window.innerWidth
-      this.bannerHeight = 600 / 1550 * this.screenWidth
-    }
-  }
+
+
   }
 </script>
 
@@ -115,9 +112,11 @@ export default{
     
 </style>
 <style>
-    img{
-        max-width: 80%;
-        height: auto;
+    .headIcon {
+        width: 60px;
+        height: 60px;
+        background-image: url(../assets/images/cook_icon.png);
+        background-size: cover;
     }
     #blur{
         height: 100%;

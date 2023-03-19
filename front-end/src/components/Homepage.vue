@@ -11,7 +11,7 @@
                         <div class="login_box">
                                 <el-form :model="searchForm" :rules="searchrules" ref="searchForm" style="padding-top: 10%;">
                                     <el-form-item prop="dish" style="display: inline-block;">
-                                        <el-input type="input" v-model="searchForm.dish" prefix-icon="el-icon-knife-fork" style="width: 300px; height: 40px; border-radius:30px 30px 30px 30px;" placeholder="Please input dish name" />
+                                        <el-input type="input" v-model="searchForm.dish" prefix-icon="el-icon-knife-fork" style="width: 300px; height: 40px; border-radius:30px 30px 30px 30px;" placeholder="Please input query" />
                                     </el-form-item>
                                     <el-form-item prop="ingredient" style="display: inline-block;">
                                         <el-input type="input" v-model="searchForm.ingredient" prefix-icon="el-icon-chicken" style="width: 300px; height: 40px;" placeholder="Must-have ingredients" />
@@ -24,6 +24,20 @@
                                     </el-form-item>
                                     <br/>
                                     <el-form-item style="display: inline-block;">
+                                        <el-switch
+                                    style="display: block"
+                                    v-model="value"
+                                    active-color="#13ce66"
+                                    inactive-color="#ff4949"
+                                    active-text="Search dish"
+                                    inactive-text="Search directions"
+                                    activate-value="dish"
+                                    inactivate-text="directions"
+                                    @change="changeStatus">
+                                    </el-switch>
+                                    </el-form-item>
+                                    <el-form-item style="display: inline-block;">
+                                       
                                         <el-button type="danger" size="large" style="width:200px;height: 40px;" @click="submitForm('searchForm')" round>Search</el-button>
                                     </el-form-item>
                                 </el-form>
@@ -54,6 +68,8 @@ export default{
         }
         
         return{
+            value: true,
+            searchType: 'dish',
             searchForm: {
                     dish: '',
                     ingredient: '',
@@ -83,6 +99,7 @@ export default{
                             ingredient: this.searchForm.ingredient,
                             include: this.searchForm.include,
                             exclude: this.searchForm.exclude,
+                            searchType: this.searchType,
                         }).then((res)=>{
                             this.$message.success("为您推荐以下路线：）")
                             this.$router.push({
@@ -100,6 +117,16 @@ export default{
                     return false;
                 }
             });
+        },
+        changeStatus: function(callback){
+            console.log(callback);
+            if (callback==true){
+                this.searchType = 'dish'
+            }
+            else{
+                this.searchType = 'directions'
+            }
+            console.log(this.searchType);
         }
 
     },
@@ -130,9 +157,9 @@ export default{
 }
 .login_box{
     width: 400px;
-    height: 350px;
+    height: 400px;
     /* background-color: #ffffff; */
-    background: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.6);
     opacity: 0.9;
     filter: alpha(opacity=90);
     border-radius: 20px;
@@ -142,5 +169,14 @@ export default{
     transform: translate(-50%,-50%);
     
 }
+/* .el-switch__label{
+    color:crimson !important;
+} */
 
+.el-switch__label.el-switch__label--left.is-active{
+    color:crimson !important;
+}
+.el-switch__label.el-switch__label--right.is-active{
+    color:crimson !important;
+}
 </style>
