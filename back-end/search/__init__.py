@@ -4,6 +4,11 @@ import json
 from flask_cors import CORS
 import pymongo
 from bson import json_util
+from keras.models import load_model
+from pickle import load
+import numpy as np
+import os
+
 
 # connect database
 # 数据库名称
@@ -15,6 +20,14 @@ tooken = "mongodb+srv://faye:passwordforttds@cluster0.d0myq6k.mongodb.net/?retry
 myclient = pymongo.MongoClient(tooken)
 mydb = myclient[myDataBase]  # 数据库名称
 db = mydb[myCollection]  # 集合名称
+
+# run the neural network
+model_path = "/Users/lidongyu/Desktop/recipe_search/back-end/search/checkpoints/word_pred_Model3.h5"
+model = load_model(model_path)
+tokenizer = load(open("tokenizer_Model3","rb"))
+
+seq_len = 2
+num_gen_words = 2
 
 
 app = Flask(__name__)

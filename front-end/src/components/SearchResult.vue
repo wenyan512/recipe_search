@@ -1,37 +1,17 @@
 <template>
+ <div id="blur">
     <el-container class="w3l-courses py-5" id="courses" style="padding-bottom:3%;">
-        <el-header id="site-header" style="font-size: 40px; font-weight: bold;">
-            <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <el-row style="width:100%;">
-                <el-form :model="searchForm" :rules="searchrules" ref="searchForm" class="d-flex search-header">
-                    <el-col :span=4 class="navbar-brand" style="color:grey;">
-                        <i class="el-icon-dish"></i>
-                        Cooking
-                    </el-col>
-                    <el-col :span=8 >
-                        <el-form-item>
-                            <input class="form-control" type="input" style="width:80%;" v-model="searchForm.dish" placeholder="Add any" aria-label="Search" />
-                        </el-form-item>
-                    </el-col>
-                <el-col :span=8>
-                    <el-form-item>
-                            <input class="form-control" type="search" style="width:80%;" v-model="searchForm.exclude" placeholder="Enter Keyword..." aria-label="Search" />
-                        
-                   </el-form-item>
-                </el-col>
-                <el-col :span=2 >
-                    <el-form-item>
-                <el-button class="btn btn-style" type="submit"><i class="fas fa-search"></i></el-button></el-form-item>
-            </el-col>
-            </el-form>
-                <!-- toggle switch for light and dark theme -->
-                <!-- //toggle switch for light and dark theme -->
-            </el-row>
-            </nav>
-        </div>                   
-        </el-header>
-        <div class="container py-lg-5 py-md-4 py-2">
+        <el-header id="site-header" style="font-weight: bold;">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a class="navbar-brand" style="color:grey; font-size: 25px;">
+                            <i class="el-icon-back" @click="backhome()">Home </i>
+                                <!-- <div class="headIcon" @click="backhome()">
+                                </div> -->
+                       </a>   
+                    </nav>
+               
+            </el-header>
+        <div class="container py-lg-0 py-md-0 py-0">
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 item mt-5">
                     <el-card class="card">
@@ -181,37 +161,16 @@
             </div>
             <!-- //pagination -->
     </el-container>
+    </div>
 </template>
 
-<script>
+<script>// @ts-nocheck
+
 export default{
     name:"SearchResult",
     data(){
-        var vString=(rule, value, callback)=>{
-            if (value == null || value == undefined || value == ""){
-                callback()
-            }
-            else if (!(/\s*^[A-Za-z]/).test(value)){
-                callback(new Error('Please enter string'))
-            }
-            else{
-                callback()
-            }
-        }
         return{
-            searchForm: {
-                    dish: '',
-                    ingredient: '',
-                    include: '',
-                    exclude: '',
-                },
-
-            searchrules: {
-                    dish: [{ validator: vString, trigger: 'blur' },],
-                    ingredient: [{ validator: vString, trigger: 'blur' },],
-                    include: [{ validator: vString, trigger: 'blur' },],
-                    exclude: [{ validator: vString, trigger: 'blur' },],
-                }
+            recipes: [],
         };
     },
     methods: {
@@ -220,8 +179,8 @@ export default{
     created(){
         this.title = this.$route.params.title;
         this.ingredients = this.$route.params.ingredients;
+        this.recipes = this.$route.params.recipes;
         console.log(this.title);
-        
     }
 
 }
@@ -231,17 +190,11 @@ export default{
 
 </style>
 
-<style scoped>
-:deep() .el-input__inner{   /*或者 .s2>>>.el-input__inner  */
-    border-radius: 20px;    /*输入框圆角值*/
-  }
-</style>
 <style>
-#blur{
-    height: 100%;
-    background: rgba(0,0,0,.4); 
-}
-
+ #blur{
+        height: 100%;
+        background: rgba(251,235,235,.4); 
+    }
 .el-form-item__content {
   display: flex;
   align-items: center;
